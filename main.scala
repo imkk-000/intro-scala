@@ -1,18 +1,20 @@
-class Point(var x: Int = 0, var y: Int = 0) {
-    def move(dx: Int, dy: Int): Unit = {
-        calc(dx, dy)
-    }
-    private def calc(dx: Int, dy: Int): Unit = {
-        x += dx
-        y += dy
-    }
-    override def toString: String = s"($x, $y)"
+trait Iterator[A] {
+    def hasNext: Boolean
+    def next(): A
 }
 
-val p1 = new Point
-p1.move(1, 2)
-println(p1)
+class IntIterator(to: Int) extends Iterator[Int] {
+    private var current = 0
+    override def hasNext: Boolean = current < to
+    override def next(): Int = {
+        if (hasNext) {
+            val t = current
+            current += 1
+            t
+        } else 0
+    }
+}
 
-val p2 = new Point(y = 1)
-p2.move(1, 2)
-println(p2)
+val iterator = new IntIterator(10)
+println(iterator.next())
+println(iterator.next())
