@@ -1,20 +1,15 @@
-trait Iterator[A] {
-    def hasNext: Boolean
-    def next(): A
-}
+trait Base
+case class Point(x: Int, y: Int) extends Base
+case class Line(start: Point, end: Point) extends Base
 
-class IntIterator(to: Int) extends Iterator[Int] {
-    private var current = 0
-    override def hasNext: Boolean = current < to
-    override def next(): Int = {
-        if (hasNext) {
-            val t = current
-            current += 1
-            t
-        } else 0
+object Main {
+    def main(args: Array[String]): Unit = {
+        val obj: Base = Line(Point(0, 0), Point(1, 2))
+        obj match {
+            case Point(_, _) =>
+                println("It's Point")
+            case Line(_, _) =>
+                println("It's Line")
+        }
     }
 }
-
-val iterator = new IntIterator(10)
-println(iterator.next())
-println(iterator.next())
